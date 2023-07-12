@@ -1,106 +1,41 @@
-<!--
-title: 'Serverless Framework Node Express API on AWS'
-description: 'This template demonstrates how to develop and deploy a simple Node Express API running on AWS Lambda using the traditional Serverless Framework.'
-layout: Doc
-framework: v3
-platform: AWS
-language: nodeJS
-priority: 1
-authorLink: 'https://github.com/serverless'
-authorName: 'Serverless, inc.'
-authorAvatar: 'https://avatars1.githubusercontent.com/u/13742415?s=200&v=4'
--->
+# TEST API de Star Wars con serverless
+La API de Star Wars es un proyecto Serverless basado en Node.js y Express que utiliza DynamoDB para almacenar información sobre los personajes y consulta la API de SWAPI para obtener datos adicionales de los personajes.
 
-# Serverless Framework Node Express API on AWS
+## Configuración
+Antes de utilizar la API de Star Wars, debes configurar algunas cosas:
 
-This template demonstrates how to develop and deploy a simple Node Express API service running on AWS Lambda using the traditional Serverless Framework.
+Instala las dependencias necesarias ejecutando `npm install`.
 
-## Anatomy of the template
+Configura tus credenciales de AWS en tu entorno local o en el archivo de configuración de AWS `(~/.aws/credentials)`.
 
-This template configures a single function, `api`, which is responsible for handling all incoming requests thanks to the `httpApi` event. To learn more about `httpApi` event configuration options, please refer to [httpApi event docs](https://www.serverless.com/framework/docs/providers/aws/events/http-api/). As the event is configured in a way to accept all incoming requests, `express` framework is responsible for routing and handling requests internally. Implementation takes advantage of `serverless-http` package, which allows you to wrap existing `express` applications. To learn more about `serverless-http`, please refer to corresponding [GitHub repository](https://github.com/dougmoscrop/serverless-http).
+Ejecutar el comando `serverless deploy`
 
-## Usage
-
-### Deployment
-
-Install dependencies with:
-
-```
-npm install
-```
-
-and then deploy with:
-
-```
-serverless deploy
-```
-
-After running deploy, you should see output similar to:
+Despues de ejecutar este comando deberas ver una respuesta similar a:
 
 ```bash
 Deploying aws-node-express-api-project to stage dev (us-east-1)
 
-✔ Service deployed to stack aws-node-express-api-project-dev (196s)
+✔ Service deployed to stack aws-node-express-api-project-dev
 
 endpoint: ANY - https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com
 functions:
-  api: aws-node-express-api-project-dev-api (766 kB)
+  api: aws-node-express-api-project-dev-api 
 ```
 
-_Note_: In current form, after deployment, your API is public and can be invoked by anyone. For production deployments, you might want to configure an authorizer. For details on how to do that, refer to [`httpApi` event docs](https://www.serverless.com/framework/docs/providers/aws/events/http-api/).
+Asegúrate de haber creado una tabla de DynamoDB con el nombre "BiographyTable". Puedes utilizar la consola de AWS o la CLI para crear la tabla.
 
-### Invocation
+## Endpoints
+La API de Star Wars proporciona los siguientes endpoints:
 
-After successful deployment, you can call the created application via HTTP:
+GET / (biography and character data)
 
-```bash
-curl https://xxxxxxx.execute-api.us-east-1.amazonaws.com/
-```
+POST /
+Almacena una nueva biografía en la base de datos DynamoDB.
 
-Which should result in the following response:
+GET /swapi/characters/:page
+Recupera información detallada de un personaje de la API de SWAPI y muestra la paginación de este.
 
-```
-{"message":"Hello from root!"}
-```
+## Conclusiones
+La API de Star Wars te permite consultar y almacenar información de los personajes utilizando DynamoDB y SWAPI. Puedes aprovechar estos endpoints para crear aplicaciones o servicios que necesiten acceder a datos relacionados con los personajes de Star Wars.
 
-Calling the `/hello` path with:
-
-```bash
-curl https://xxxxxxx.execute-api.us-east-1.amazonaws.com/hello
-```
-
-Should result in the following response:
-
-```bash
-{"message":"Hello from path!"}
-```
-
-If you try to invoke a path or method that does not have a configured handler, e.g. with:
-
-```bash
-curl https://xxxxxxx.execute-api.us-east-1.amazonaws.com/nonexistent
-```
-
-You should receive the following response:
-
-```bash
-{"error":"Not Found"}
-```
-
-### Local development
-
-It is also possible to emulate API Gateway and Lambda locally by using `serverless-offline` plugin. In order to do that, execute the following command:
-
-```bash
-serverless plugin install -n serverless-offline
-```
-
-It will add the `serverless-offline` plugin to `devDependencies` in `package.json` file as well as will add it to `plugins` in `serverless.yml`.
-
-After installation, you can start local emulation with:
-
-```
-serverless offline
-```
-
-To learn more about the capabilities of `serverless-offline`, please refer to its [GitHub repository](https://github.com/dherault/serverless-offline).
+¡Eso es todo! Esta es una documentación básica para tu proyecto. Asegúrate de personalizarla según tus necesidades específicas y agregar cualquier información adicional que consideres relevante para los usuarios de tu API.
