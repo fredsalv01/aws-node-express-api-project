@@ -14,7 +14,7 @@ class Personaje {
     especies,
     vehiculos,
     navesEspaciales,
-    biography = null
+    biografia = null
   ) {
     this.id = id;
     this.nombre = nombre;
@@ -30,7 +30,7 @@ class Personaje {
     this.especies = especies;
     this.vehiculos = vehiculos;
     this.navesEspaciales = navesEspaciales;
-    this.biography = biography;
+    this.biografia = biografia;
   }
 }
 
