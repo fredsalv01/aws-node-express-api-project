@@ -30,7 +30,7 @@ functions:
   handler: createBiography.createBiography
   events:
     - httpApi:
-        path: /biography
+        path: /
         method: post
 
 resources:
