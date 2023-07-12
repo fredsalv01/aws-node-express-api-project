@@ -15,7 +15,7 @@ module.exports.getCharactersFromApi = async (event) => {
       const homeworld = await fn.findHomeWorld(item.homeworld);
       const movies = await fn.findMovies(item.films);
       const species = await fn.findSpecies(item.species);
-      return new Personaje(
+      const { biography, ...rest } =  new Personaje(
         id,
         item.name,
         item.height,
@@ -31,6 +31,7 @@ module.exports.getCharactersFromApi = async (event) => {
         item.vehicles,
         item.starships
       );
+      return rest
     })
   );
 
