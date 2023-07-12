@@ -1,11 +1,11 @@
 const serverless = require("serverless-http");
 const express = require("express");
 const app = express();
-const axios = require("axios");
+const axios = require("axios").default;
 
 // users model
 class Personaje {
-  constructor(id, nombre, genero, altura, peso, biography=null) {
+  constructor(id, nombre, genero, altura, peso, biography = null) {
     this.id = id;
     this.nombre = nombre;
     this.genero = genero;
@@ -16,20 +16,21 @@ class Personaje {
 }
 
 app.get("/", async (req, res, next) => {
-  const { search, page = 1 } = req.body;
-  try {
-    axios
-      .get(`https://swapi.py4e.com/api/people/?search=${search}&page=${page}`)
-      .then((response) => {
-        console.log(response)
-        return res.status(200).json(response);
-      })
-      .catch((error) => console.log(error));
-  } catch (error) {
-    console.log(error);
-    return res.status(500).json({
-      message: "Something went wrong.",
+  const { search, page = 1 } = req.query;
+  try{
+    const { data } = await axios.get(
+    `https://swapi.py4e.com/api/people/?search=${search}&page=${page}`
+    );
+    const characters = (data?.results).map((item, index) => {
+      const id = Number(item.url.split("/", 6)[5]);
+      return new Personaje(id, item.name, item.gender, item.height, item.mass);
     });
+    
+    const totalItems = characters.length;
+    
+    return res.status(200).json({pagina: page, totalPorPagina: totalItems, personajes: characters});
+  }catch(error){
+    return res.status(500).json(error);
   }
 });
 
