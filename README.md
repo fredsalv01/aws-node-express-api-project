@@ -27,13 +27,16 @@ Asegúrate de haber creado una tabla de DynamoDB con el nombre "BiographyTable".
 ## Endpoints
 La API de Star Wars proporciona los siguientes endpoints:
 
-GET / (biography and character data)
+GET /swapi/characters/:page
+Recupera información detallada de un personaje de la API de SWAPI y muestra la paginación de este.
 
 POST /
 Almacena una nueva biografía en la base de datos DynamoDB.
 
-GET /swapi/characters/:page
-Recupera información detallada de un personaje de la API de SWAPI y muestra la paginación de este.
+GET / 
+Obtiene la informacion del personaje de SWAPI cuya biografia ya se encuentra almacenada en la BD.
+
+
 
 ## Conclusiones
 La API de Star Wars te permite consultar y almacenar información de los personajes utilizando DynamoDB y SWAPI. Puedes aprovechar estos endpoints para crear aplicaciones o servicios que necesiten acceder a datos relacionados con los personajes de Star Wars.
