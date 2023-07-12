@@ -13,7 +13,7 @@ module.exports.createBiography = async (event) => {
     description,
   }
   await dynamoDb.put({
-    TableName: "BiographyTable",
+    TableName: process.env.DYNAMODB_BIOGRAPHY_TABLE,
     Item: newBiography
   }).promise();
 

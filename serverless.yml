@@ -28,6 +28,12 @@ functions:
       - httpApi:
           path: /
           method: post
+  getCharacters:
+    handler: src/getCharacters.getCharacters
+    events:
+      - httpApi:
+          path: /
+          method: get
 
 resources:
   Resources:
