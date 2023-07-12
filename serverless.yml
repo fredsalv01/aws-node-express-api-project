@@ -28,11 +28,17 @@ functions:
       - httpApi:
           path: /
           method: post
-  getCharacters:
-    handler: src/getCharacters.getCharacters
+  getCharactersFromDB:
+    handler: src/getCharactersFromDB.getCharactersFromDB
     events:
       - httpApi:
           path: /
+          method: get
+  getCharactersFromApi:
+    handler: src/getCharactersFromApi.getCharactersFromApi
+    events:
+      - httpApi:
+          path: /swapi/characters/{page}
           method: get
 
 resources:
