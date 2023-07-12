@@ -1,0 +1,136 @@
+openapi: 3.0.3
+info:
+  title: API de Star Wars
+  version: 1.0.0
+paths:
+  /:
+    post:
+      summary: Crear una biografía
+      operationId: createBiography
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                characterId:
+                  type: string
+                  description: ID del personaje
+                biography:
+                  type: string
+                  description: Descripción o biografía del personaje
+              example:
+                characterId: "3"
+                biography: "La biografía del personaje 3"
+      responses:
+        "201":
+          description: Biografía creada con éxito
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  primary_key:
+                    type: string
+                    description: ID de la biografia en dynamoDB
+                  description:
+                    type: string
+                    description: Biografia del personaje
+                  characterId:
+                    type: string
+                    description: Descripción o biografía del personaje
+              example:
+                primary_key: "99f4e311-738d-4bae-b952-57b21000a307"
+                characterId: 3
+                biography: "La biografía del personaje 3"
+
+    get:
+      summary: Obtener información de la biografía
+      operationId: getBiography
+      responses:
+        "200":
+          description: Información de la biografía recuperada con éxito
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      description: ID del personaje
+                    biography:
+                      type: string
+                      description: Descripción o biografía del personaje
+              example:
+                - id: "1"
+                  biography: "La biografía del personaje 1"
+                - id: "2"
+                  biography: "La biografía del personaje 2"
+
+  /swapi/characters/{page}:
+    get:
+      summary: Obtener información de los personajes de SWAPI
+      operationId: getCharactersFromApi
+      parameters:
+        - name: page
+          in: path
+          required: true
+          description: Número de página de personajes de SWAPI
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Información de los personajes recuperada con éxito
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: ID del personaje
+                  name:
+                    type: string
+                    description: Nombre del personaje
+                  height:
+                    type: string
+                    description: Altura del personaje
+                  mass:
+                    type: string
+                    description: Peso del personaje
+                  hair_color:
+                    type: string
+                    description: Color de cabello del personaje
+                  skin_color:
+                    type: string
+                    description: Color de piel del personaje
+                  eye_color:
+                    type: string
+                    description: Color de ojos del personaje
+                  birth_year:
+                    type: string
+                    description: Año de nacimiento del personaje
+                  gender:
+                    type: string
+                    description: Género del personaje
+                  homeworld:
+                    type: string
+                    description: Planeta natal del personaje
+                  biography:
+                    type: string
+                    description: Descripción o biografía del personaje
+              example:
+                id: "1"
+                name: "Luke Skywalker"
+                height: "172"
+                mass: "77"
+                hair_color: "blond"
+                skin_color: "fair"
+                eye_color: "blue"
+                birth_year: "19BBY"
+                gender: "male"
+                homeworld: "Tatooine"
+                biography: "La biografía del personaje 1"
