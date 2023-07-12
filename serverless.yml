@@ -7,7 +7,7 @@ provider:
   name: aws
   runtime: nodejs18.x
   environment:
-    DYNAMODB_BIOGRAPHY_TABLE: ${self:service}-biographyTable-${sls:stage}
+    DYNAMODB_BIOGRAPHY_TABLE: BiographyTable
   iam:
     role:
       statements:
@@ -18,20 +18,16 @@ provider:
             - 'dynamodb:Scan*'
             - 'dynamodb:UpdateItem'
             - 'dynamodb:DeleteItem'
-          Resource: arn:aws:dynamodb:${aws:region}:${aws:accountId}:table/${self:service}-biographyTable-${sls:stage}
+          Resource: arn:aws:dynamodb:${aws:region}:${aws:accountId}:table/BiographyTable
 
 
 functions:
   api:
-    handler: index.handler
+    handler: src/createBiography.createBiography
     events:
-      - httpApi: '*'
-  createBiography:
-  handler: createBiography.createBiography
-  events:
-    - httpApi:
-        path: /
-        method: post
+      - httpApi:
+          path: /
+          method: post
 
 resources:
   Resources:
@@ -45,5 +41,5 @@ resources:
         KeySchema:
           - AttributeName: primary_key
             KeyType: HASH
-        TableName: ${self:service}-biographyTable-${sls:stage}
+        TableName: BiographyTable
 
