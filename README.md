@@ -41,4 +41,3 @@ Obtiene la informacion del personaje de SWAPI cuya biografia ya se encuentra alm
 ## Conclusiones
 La API de Star Wars te permite consultar y almacenar información de los personajes utilizando DynamoDB y SWAPI. Puedes aprovechar estos endpoints para crear aplicaciones o servicios que necesiten acceder a datos relacionados con los personajes de Star Wars.
 
-¡Eso es todo! Esta es una documentación básica para tu proyecto. Asegúrate de personalizarla según tus necesidades específicas y agregar cualquier información adicional que consideres relevante para los usuarios de tu API.
